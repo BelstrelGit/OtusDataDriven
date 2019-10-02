@@ -1,4 +1,4 @@
-package com.renarde.wikiflow.consumer
+package com.belstrel.otusanalytics.consumer
 
 import java.util.Properties
 

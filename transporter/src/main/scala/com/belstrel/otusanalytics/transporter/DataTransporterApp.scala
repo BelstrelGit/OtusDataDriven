@@ -1,4 +1,4 @@
-package com.renarde.wikiflow.transporter
+package com.belstrel.otusanalytics.transporter
 
 import java.util.Properties
 

@@ -1,4 +1,4 @@
-package com.renarde.wikiflow.consumer
+package com.belstrel.otusanalytics.consumer
 
 import com.typesafe.scalalogging.LazyLogging
 import org.apache.spark.sql.types.{BooleanType, IntegerType, StringType, StructType}
