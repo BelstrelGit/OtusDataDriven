@@ -1,0 +1,58 @@
+Курсовой проект. Постановка задачи и требования
+
+Что
+
+В качестве курсового проекта необходимо придумать дизайн и архитектуру, а затем - имплементировать data-driven приложение в выбранной доменной области. 
+Работающее приложение должно быть представлено в качестве репозитория в GitHub. 
+
+Как
+Описать архитектуру и бизнес-требования к приложению в формате Google Doc, и прикрепили эту архитектуру к GitHub, для схематизации советую использовать draw.io 
+В приложении обязательно должен быть код, который решает следующие задачи:
+Загрузка данных из какого-либо источника. Примеры источников данных:
+Статичные и динамические источники:
+https://github.com/awesomedata/awesome-public-datasets
+Динамические бесплатные источники:
+RSS-Feed - news feed 
+Биржевые котировки
+https://finance.yahoo.com/quotes/API,Documentation/view/v1/
+https://developer.oanda.com/
+Wikipedia Event Stream
+В крайнем случае - вы можете сгенерировать какие-то случайные данные:
+https://github.com/joke2k/faker
+https://github.com/DanielaSfregola/random-data-generator
+Разместите данные в выбранном хранилище:
+Хранилище может быть:
+SQL-like
+Amazon service
+NoSQL
+S3 / parquet / delta 	
+Batch-job (набор джобов) который интегрирует входные данные и  сохраняет их в ваше хранилище -> Spark 
+Этот Batch-job вы должны установить на регулярное выполнение (можно с малой частотой)
+Как это разворачивать:
+Docker-compose и примеры из курса
+Развернуть решение в Google Cloud / AWS 
+Развернуть решение в heroku 
+В качестве задачи со звездочкой:
+Имплементировать spark streaming и realtime запись или чтение в ваше хранилище. 	
+В качестве задачи со звездочкой-2:
+Имплементировать мониторинг вашего решения (на досупных и удобных вам инструментах). 
+
+Каким может быть решение:
+Docker-compose:
+Kafka
+Producer (генерирует данные)
+Consumer (потребляет данные)
+Storage (clickhouse / aerospike)
+API (?) 
+ELK (для мониторинга)
+Kubernetes:
+CI/CD pipeline
+Scheduled jobs
+
+Примеры
+https://github.com/renardeinside/wikiflow
+https://github.com/renardeinside/anblick
+Список различных API - https://rapidapi.com/ 
+API с данными ЗВ -  https://rapidapi.com/stefan.skliarov/api/Swapi
+https://github.com/rambler-digital-solutions/criteo-1tb-benchmark - 1TB данных от компании Criteo
+

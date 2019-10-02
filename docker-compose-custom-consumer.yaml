@@ -1,0 +1,8 @@
+version: "3"
+services:
+  analytics-consumer:
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile-custom
+    
+
