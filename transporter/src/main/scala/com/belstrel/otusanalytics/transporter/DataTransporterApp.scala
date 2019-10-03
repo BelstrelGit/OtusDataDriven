@@ -12,15 +12,15 @@ import akka.stream.ActorMaterializer
 //import akka.stream.scaladsl.{RestartSource, Source}
 import com.typesafe.scalalogging._
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
-import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
+//import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
 
 import scala.io.Source
 
 import scala.concurrent.duration._
 
 object DataTransporterApp extends App with StrictLogging {
-  logger.info("Initializing FlowProducer, sleeping for 30 seconds to let Kafka startup")
-  Thread.sleep(1000)
+  logger.info("Initializing Producer, sleeping for 30 seconds to let Kafka startup")
+  Thread.sleep(10000)
 
   implicit val system: ActorSystem = ActorSystem()
   implicit val mat: ActorMaterializer = ActorMaterializer()
@@ -39,28 +39,27 @@ object DataTransporterApp extends App with StrictLogging {
 
   val producer = new KafkaProducer[Nothing, String](props)
   producer.flush()
-
   logger.info("Kafka producer initialized")
 
-  var msgCounter = 0
 
-   //try close
+
+//  try {       logMessages.close()   сделать закрытие ресурса
   val logMessages = Source.
     fromFile("/transporter/stage/securities.csv").
     getLines.
     toList
-//   logMessages.foreach(println)
-  Thread.sleep(500)
+
   logMessages.foreach(message => {
-    println("MESSAGE FROM FILE======" + message)
-    //rename topic!!
-    val record = new ProducerRecord("wikiflow-topic",  message)
-    println("RECORD FROM FILE========" +record)
+    val record = new ProducerRecord("stock-topic",  message)
     producer.send(record)
-    println("RECORD SEND TO KAFKA========" +record)
-
+    logger.info("STOCKS SEND TO KAFKA========" +record)
   })
+      producer.close()
 
+
+
+
+//  var msgCounter = 0
 //  val restartSource = RestartSource.withBackoff(
 //    minBackoff = 3.seconds,
 //    maxBackoff = 10.seconds,

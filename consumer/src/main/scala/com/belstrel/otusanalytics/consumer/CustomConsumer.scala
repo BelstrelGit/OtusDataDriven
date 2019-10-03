@@ -14,8 +14,9 @@ object CustomConsumer  extends App with LazyLogging {
 
 
   override def main(args: Array[String]): Unit = {
-    consumeFromKafka("wikiflow-topic")
+    consumeFromKafka("stock-topic")
   }
+
   def consumeFromKafka(topic: String) = {
     val props = new Properties()
     props.put("bootstrap.servers", "kafka:9092")
@@ -23,18 +24,17 @@ object CustomConsumer  extends App with LazyLogging {
     props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
     props.put("auto.offset.reset", "latest")
     props.put("group.id", "consumer-group")
-
-
-//    Thread.sleep(1200)
+    Thread.sleep(10100)
     val consumer: KafkaConsumer[String, String] = new KafkaConsumer[String, String](props)
+
     consumer.subscribe(util.Arrays.asList(topic))
     while (true) {
       val record = consumer.poll(1000).asScala
-      println("RECORDDDD    RECORD  "   + record )
-      for (data <- record.iterator) {
-        println(data.value().toString)
-      }
+      for (data <- record.iterator)
+        println(data.value())
     }
+    consumer.close()
+
 
 //    def writeFile(filename: String, s: String): Unit = {
 //      val file = new File(filename)
