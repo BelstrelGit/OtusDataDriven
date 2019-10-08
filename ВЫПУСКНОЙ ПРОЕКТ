@@ -72,5 +72,34 @@ val fileToDf = file.map(_.split(",")).map{case Array(a,b,c,d,e,f,g) =>
 // fileToDf.foreach(println(_))
 
 
+import org.apache.spark.sql.functions._
+// import org.apache.spark.sql.implicits._
+val file = sc.textFile("/home/jovyan/stage/model/prices.txt")
+val fileToDf = file.map(_.split(",")).map{case Array(a,b,c,d,e,f,g) => 
+( a, b , c.toFloat, d.toFloat, e.toFloat, f.toFloat, g.toFloat)}.toDF("date", "symbol", 
+                                                                      "open",  "close", "low",  "high",  "volume" )
+
+.withColumn("date", to_date(unix_timestamp(col("date"), "yyyy-MM-dd").cast("timestamp")))
+
+// fileToDf.show(1000)
+
+fileToDf.write.mode("overwrite").option("header", true).parquet("price.parquet")
+
+//  val result = crimeTotal.join(frequent_crime_top, "DISTRICT")
+//       .write.parquet(outputFile)
+
+
+    val res = spark.read.parquet("price.parquet")
+    .orderBy(asc("date"))
+    res.show(100)
+
+//  val modifiedDF = fileToDf
+// .withColumn("date", to_date(unix_timestamp(fileToDf.col("date"), "yyyy-MM-dd").cast("timestamp")))
+//  .orderBy(asc("date"))
+
+// .write.option("header", "true").option("inferSchema", "true").csv("PRICE.csv")
+// fileToDf.foreach(println(_))
+
+
 fileToDf.show
 
