@@ -44,7 +44,7 @@ object CustomConsumer  extends App with LazyLogging {
 //    var list = scala.collection.mutable.ArraySeq[String]
 //    sudo  docker exec  -i -t 8e3ed337ad0a /bin/bash
     //  refactor to csv!!!
-    val file = new File("/stage/model/sec.txt" )
+    val file = new File("/stage/model/prices.txt" )
     file.setExecutable(true)
     file.setWritable(true)
     file.setReadable(true)
@@ -55,10 +55,11 @@ object CustomConsumer  extends App with LazyLogging {
       }
     }
     consumer.close()
-
+      //refactor to use csv
     def writeFile(file: File, line: String): Unit = {
       val bw = new BufferedWriter(new FileWriter(file, true))
-        bw.write(line + "/n")
+        bw.write(line)
+       bw.write("\n")
       bw.close()
     }
 

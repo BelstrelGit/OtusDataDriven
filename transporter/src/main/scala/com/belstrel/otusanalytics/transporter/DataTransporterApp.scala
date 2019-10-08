@@ -45,7 +45,7 @@ object DataTransporterApp extends App with StrictLogging {
 
 //  try {       logMessages.close()   сделать закрытие ресурса
   val logMessages = Source.
-    fromFile("/transporter/stage/securities.csv").
+    fromFile("/transporter/stage/prices.csv").
     getLines.
     toList
 

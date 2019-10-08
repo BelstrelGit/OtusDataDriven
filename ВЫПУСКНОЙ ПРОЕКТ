@@ -56,3 +56,21 @@ https://github.com/renardeinside/anblick
 API с данными ЗВ -  https://rapidapi.com/stefan.skliarov/api/Swapi
 https://github.com/rambler-digital-solutions/criteo-1tb-benchmark - 1TB данных от компании Criteo
 
+
+Схема прайс 
+date symbol open close low high volume 
+
+
+
+
+
+val file = sc.textFile("/home/jovyan/stage/model/prices.txt")
+val fileToDf = file.map(_.split(",")).map{case Array(a,b,c,d,e,f,g) => 
+(a, b , c.toFloat, d.toFloat, e.toFloat, f.toFloat, g.toFloat)}.toDF("date", "symbol",  "open",  "close", 
+                                                           "low",  "high",  "volume" )
+// .write.option("header", "true").option("inferSchema", "true").csv("PRICE.csv")
+// fileToDf.foreach(println(_))
+
+
+fileToDf.show
+
