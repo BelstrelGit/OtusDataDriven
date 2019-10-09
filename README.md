@@ -10,14 +10,26 @@ OtusBigProject
 
 
 ```
-- Run analytics
-```bash
-make run-appliance
-```
+- Run analytics app for write and read data from kafka
 
+ cd   ~/OtusDataDriven
+make run-appliance
+
+
+Запуск докера для ноутбука
+
+ cd   ~/OtusDataDriven/SparkNotebooks
+docker-compose up --build
+
+
+Получение токена для ноутбука откройте новое окно терминала!!
+
+ cd   ~/OtusDataDriven/JupyterNotebooks
+$ sudo docker-compose -f docker-compose.yml exec jupyter-local jupyter notebook list
+
+открыть папку work и запустить Spark_Batch_Job.ipynb
 
 You could also access the SparkUI for this Job at http://localhost:4040/jobs
-
 
 
 ## Known issues
@@ -53,4 +65,6 @@ One day ahead prediction: Rolling Linear Regression, ARIMA, Neural Networks, LST
 Momentum/Mean-Reversion Strategies
 Security clustering, portfolio construction/hedging
 Which company has biggest chance of being bankrupt? Which one is undervalued (how prices behaved afterwards), what is Return on Investment?
+
+
 ```
